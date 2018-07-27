@@ -4,7 +4,8 @@
   "description": "An API which return Kpop artists for now.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "test": "SET NODE_ENV=test || SET \"NODE_ENV=test\" && nodemon --exec mocha --recursive"
   },
   "keywords": [
     "kpop",
@@ -13,5 +14,16 @@
     "k-music"
   ],
   "author": "Thorben Luepkes",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.2.5",
+    "supertest": "^3.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.3"
+  }
 }
