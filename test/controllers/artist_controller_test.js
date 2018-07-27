@@ -5,7 +5,21 @@ const app = require('../../app');
 const Artist = mongoose.model('artist');
 
 describe('Artists Controller', () => {
-    it('Post Request to /api/artist creates a new artist', done => {
+    it('handles a GET request to /api/artists', (done) => {
+        request(app)
+            .post('/api/artists')
+            .send( {name: 'Seventeen'} )
+        request(app)
+            .get('/api/artists')
+            .end(() => {
+                Artist.find({})
+                    .then((artist) => {
+                        assert(artist !== null);
+                    });
+                done();
+            });
+    });
+    it('Post Request to /api/artists creates a new artist', done => {
         Artist.countDocuments().then(count => {
             request(app)
                 .post('/api/artists')
@@ -28,6 +42,20 @@ describe('Artists Controller', () => {
                     Artist.findOne({name:'2NE1'})
                         .then(artist => {
                             assert(artist.active === false);
+                            done();
+                        });
+                });
+        });
+    });
+    it('Delete request to /api/artists/:id to delete an existing record', done => {
+        const artist = new Artist({name: 'Big Bang'});
+        artist.save().then(() => {
+            request(app)
+                .delete(`/api/artists/${artist._id}`)
+                .end(() => {
+                    Artist.findOne({name: 'Big Bang'})
+                        .then((artist) => {
+                            assert(artist === null);
                             done();
                         });
                 });

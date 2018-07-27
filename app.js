@@ -7,7 +7,7 @@ const routes = require('./routes/api');
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'test') {
-    mongoose.connect('mongodb://localhost:27017/K-API');
+    mongoose.connect('mongodb://localhost:27017/K-API', { useNewUrlParser: true });
 }
 
 app.use(morgan('dev'));

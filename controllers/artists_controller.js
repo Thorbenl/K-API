@@ -1,16 +1,19 @@
 const Artist = require('../models/artist');
 
 module.exports = {
-    greeting(req, res) {
-      res.send({hi: 'there'});
+    index(req, res, next) {
+      Artist.find({})
+          .then(artist => res.send(artist))
+          .catch(next);
     },
 
     create(req, res, next) {
         const artistProps = req.body;
-
-        Artist.create(artistProps)
-            .then(artist => res.send(artist))
-            .catch(next);
+        if (Artist.name !== artistProps.name) {
+            Artist.create(artistProps)
+                .then(artist => res.send(artist))
+                .catch(next);
+        }
     },
 
     edit(req, res, next) {
@@ -25,6 +28,10 @@ module.exports = {
     },
 
     delete(req, res, next) {
-
+        const artistId = req.params.id;
+        Artist.findByIdAndRemove({ _id: artistId})
+            .then((artist) => res.status(204).send(artist))
+            .catch(next);
     }
+
 };
