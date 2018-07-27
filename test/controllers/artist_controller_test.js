@@ -18,4 +18,19 @@ describe('Artists Controller', () => {
                 });
         });
     });
+    it('Put to /api/artists/:id updates an existing record', done => {
+        const artist = new Artist({ name: '2NE1', active: true});
+        artist.save().then(() => {
+            request(app)
+                .put(`/api/artists/${artist._id}`)
+                .send({ active: false})
+                .end(() => {
+                    Artist.findOne({name:'2NE1'})
+                        .then(artist => {
+                            assert(artist.active === false);
+                            done();
+                        });
+                });
+        });
+    });
 });
