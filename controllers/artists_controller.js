@@ -32,6 +32,17 @@ module.exports = {
         Artist.findByIdAndRemove({ _id: artistId})
             .then((artist) => res.status(204).send(artist))
             .catch(next);
+    },
+
+    view(req, res, next) {
+        const artistId = req.params.id;
+        const artistProps = req.body;
+
+        Artist.findById({ _id: artistId}, artistProps)
+            .then(() => Artist.findById({_id: artistId}))
+            .then(artist => res. send(artist))
+            .catch(next);
+
     }
 
 };
