@@ -2,12 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TracklistSchema = new Schema({
-    trackNumber: Number,
+    trackNumber: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 24
+    },
     title: {
         type: String,
+        minlength: 3,
+        maxlength: 255,
         required: true
-    },
-    duration: String
+    }
 });
 
 const AlbumSchema = new Schema({
@@ -16,30 +22,44 @@ const AlbumSchema = new Schema({
         required: true
     },
     releaseDate: Date,
-    copiesSold: Number,
-    numberTracks: Number,
+    numberOfTracks: Number,
     trackList: [TracklistSchema]
 });
 
 const ArtistSchema = new Schema({
-    name: {
+    stageName: {
         type: String,
         unique: true,
+        required: true,
+        minlength: 3,
+        maxlength: 255
+    },
+    realName: {
+        type: String,
+        unique: true,
+        required: true,
+        minlength: 3,
+        maxlength: 255
+    },
+    birthday: {
+        type: Date,
         required: true
     },
-    genre: {
-        type: String,
+    debutDate: {
+        type: Date,
         required: true
     },
-    label: {
+    company: {
         type: String,
-        required: true
+        required: function () {
+            return this.active;
+        }
     },
     active: {
         type: Boolean,
         default: true
     },
-    albums: [AlbumSchema],
+    music: [AlbumSchema],
     createdAt: {
         type: Date,
         default: Date.now

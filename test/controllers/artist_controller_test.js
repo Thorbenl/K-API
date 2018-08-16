@@ -23,7 +23,7 @@ describe('Artists Controller', () => {
         Artist.countDocuments().then(count => {
             request(app)
                 .post('/api/artists')
-                .send( {name: 'Seventeen'} )
+                .send( {name: 'Seventeen', label: 'SM', genre: ['pop']} )
                 .end(() => {
                     Artist.countDocuments().then(newCount => {
                         assert(count + 1 === newCount);
@@ -33,7 +33,7 @@ describe('Artists Controller', () => {
         });
     });
     it('Put to /api/artists/:id updates an existing record', done => {
-        const artist = new Artist({ name: '2NE1', active: true});
+        const artist = new Artist({ name: '2NE1', active: true, label: 'YG', genre: ['pop']});
         artist.save().then(() => {
             request(app)
                 .put(`/api/artists/${artist._id}`)
@@ -48,7 +48,7 @@ describe('Artists Controller', () => {
         });
     });
     it('Delete request to /api/artists/:id to delete an existing record', done => {
-        const artist = new Artist({name: 'Big Bang'});
+        const artist = new Artist({name: 'Big Bang', label: 'YG', genre: ['pop']});
         artist.save().then(() => {
             request(app)
                 .delete(`/api/artists/${artist._id}`)

@@ -2,7 +2,9 @@ const Artist = require('../models/artist');
 
 module.exports = {
     index(req, res, next) {
-      Artist.find({})
+      Artist
+          .find({})
+          .sort({ $natural: 1 })
           .then(artist => res.send(artist))
           .catch(next);
     },

@@ -1,10 +1,10 @@
-const config = require('config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
-const routes = require('./routes/api');
+const artists = require('./routes/artists');
+const users = require('./routes/users');
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'test') {
@@ -19,7 +19,8 @@ if (app.get('env') === 'development') {
 }
 
 app.use(bodyParser.json());
-routes(app);
+artists(app);
+users(app);
 
 app.use((err, req, res, next) => {
     res.status(422).send({error: err.message});

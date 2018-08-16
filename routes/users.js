@@ -1,8 +1,10 @@
 const UserController = require('../controllers/users_controller');
+const express = require('express');
+const usersRouter = express.Router();
 
-module.exports = (app) => {
+module.exports = (usersRouter) => {
 
     //Users
-    app.post('/api/user', UserController.create);
+    usersRouter.post('/api/users', UserController.create);
 
 };
