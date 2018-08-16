@@ -2,6 +2,7 @@ const ArtistController = require('../controllers/artists_controller');
 
 module.exports = (app) => {
 
+    //Artists
     app.get('/api/artists', ArtistController.index);
 
     app.get('/api/artists/:id', ArtistController.view);
@@ -11,5 +12,5 @@ module.exports = (app) => {
     app.put('/api/artists/:id', ArtistController.edit);
 
     app.delete('/api/artists/:id', ArtistController.delete);
-
+    
 };
