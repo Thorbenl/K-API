@@ -38,7 +38,7 @@ const ArtistSchema = new Schema({
         type: String,
         unique: true,
         required: true,
-        minlength: 3,
+        minlength: 5,
         maxlength: 255
     },
     birthday: {
@@ -51,6 +51,8 @@ const ArtistSchema = new Schema({
     },
     company: {
         type: String,
+        minlength: 5,
+        maxlength: 255,
         required: function () {
             return this.active;
         }

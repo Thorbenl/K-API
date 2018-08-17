@@ -1,8 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const helmet  = require('helmet');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
+
 const artists = require('./routes/artists');
 const users = require('./routes/users');
 
@@ -18,9 +19,11 @@ if (app.get('env') === 'development') {
     console.log('Morgan enabled...')
 }
 
-app.use(bodyParser.json());
-artists(app);
-users(app);
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(helmet());
+app.use('/api/artists', artists);
+app.use('/api/users', users);
 
 app.use((err, req, res, next) => {
     res.status(422).send({error: err.message});

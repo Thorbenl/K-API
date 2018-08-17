@@ -1,18 +1,15 @@
 const ArtistController = require('../controllers/artists_controller');
 const express = require('express');
-const artistRouter = express.Router();
+const router = express.Router();
 
-module.exports = (artistRouter) => {
+router.get('/', ArtistController.index);
 
-    //Artists
-    artistRouter.get('/api/artists', ArtistController.index);
+router.get('/:id', ArtistController.view);
 
-    artistRouter.get('/api/artists/:id', ArtistController.view);
+router.post('/', ArtistController.create);
 
-    artistRouter.post('/api/artists', ArtistController.create);
+router.put('/:id', ArtistController.edit);
 
-    artistRouter.put('/api/artists/:id', ArtistController.edit);
+router.delete('/:id', ArtistController.delete);
 
-    artistRouter.delete('/api/artists/:id', ArtistController.delete);
-
-};
+module.exports = router;

@@ -1,4 +1,14 @@
 const Artist = require('../models/artist');
+const Joi = require('joi');
+
+function validateArtist(artist) {
+    const schema = {
+        stageName: Joi.string().min(3).max(255).required(),
+        realName: Joi.string().min(5).max(255).required(),
+        company: Joi.string().min(5).max(255).required(),
+    };
+    return Joi.validate(artist, schema)
+}
 
 module.exports = {
     index(req, res, next) {
@@ -10,7 +20,10 @@ module.exports = {
     },
 
     create(req, res, next) {
-        const artistProps = req.body;
+        const { error } = validateArtist(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
+        let artistProps = req.body;
         if (Artist.name !== artistProps.name) {
             Artist.create(artistProps)
                 .then(artist => res.send(artist))
@@ -46,5 +59,4 @@ module.exports = {
             .catch(next);
 
     }
-
 };
