@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TracklistSchema = new Schema({
-    trackNumber: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 24
-    },
     title: {
         type: String,
         minlength: 3,
         maxlength: 255,
         required: true
+    },
+    trackNumber: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 24
     }
 });
 
