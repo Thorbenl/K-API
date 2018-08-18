@@ -1,7 +1,6 @@
 const Artist = require('../models/artist');
 const Joi = require('joi');
 
-
 function validateArtist(artist) {
     const schema = {
         stageName: Joi.string().min(3).max(255).required(),
@@ -9,14 +8,14 @@ function validateArtist(artist) {
         company: Joi.string().min(5).max(255).required(),
         birthday: Joi.date().required(),
         debutDate: Joi.date().required(),
-        music: validateMusic(),
+        music: Joi.array().required(),
     };
     return Joi.validate(artist, schema)
 }
 
 module.exports = {
     index: async (req, res, next) => {
-      Artist
+      await Artist
           .find({})
           .then(artist => res.send(artist))
           .catch(next);
@@ -24,21 +23,24 @@ module.exports = {
 
     create: async (req, res, next) => {
         const { error } = validateArtist(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error)
+            return res.status(400).send(error.details[0].message);
+
+        const artist = await Artist.findOne({ stageName: req.body.stageName});
+        if (artist)
+            return res.status(400).send('Artist already exists');
 
         let artistProps = req.body;
-        if (Artist.name !== artistProps.name) {
-            Artist.create(artistProps)
-                .then(artist => res.send(artist))
-                .catch(next);
-        }
+        await Artist.create(artistProps)
+             .then(artist => res.send(artist))
+             .catch(next);
     },
 
     edit: async (req, res, next) => {
         const artistId = req.params.id;
         const artistProps = req.body;
 
-        Artist.findByIdAndUpdate({ _id: artistId}, artistProps)
+        await Artist.findByIdAndUpdate({ _id: artistId}, artistProps)
             .then(() => Artist.findById({_id: artistId}))
             .then(artist => res. send(artist))
             .catch(next);
@@ -47,7 +49,7 @@ module.exports = {
 
     delete: async (req, res, next) => {
         const artistId = req.params.id;
-        Artist.findByIdAndRemove({ _id: artistId})
+        await Artist.findByIdAndRemove({ _id: artistId})
             .then((artist) => res.status(204).send(artist))
             .catch(next);
     },
@@ -56,7 +58,7 @@ module.exports = {
         const artistId = req.params.id;
         const artistProps = req.body;
 
-        Artist.findById({ _id: artistId}, artistProps)
+        await Artist.findById({ _id: artistId}, artistProps)
             .then(() => Artist.findById({_id: artistId}))
             .then(artist => res. send(artist))
             .catch(next);

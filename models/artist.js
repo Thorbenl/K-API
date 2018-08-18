@@ -13,7 +13,8 @@ const TracklistSchema = new Schema({
         required: true,
         min: 1,
         max: 24
-    }
+    },
+
 });
 
 const AlbumSchema = new Schema({
