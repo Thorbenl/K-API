@@ -16,38 +16,10 @@ npm install
 
 # Env Variables
 Windows & Linux
-SET jwtPrivateKey=hello
+SET kpi_jwtPrivateKey=hello
 
 Mac
-export jwtPrivateKey=hello
+export kpi_jwtPrivateKey=hello
 
 # Start server
 npm run start
-
-You now can use Postman or curl to make requests to:
-
-# User
-
-## Create a new user
-
-
-
-	POST /api/user/
-
-
-### Payload:
-
-{
-	"name": String, 
-	"password": String,
-	"email": String
-}
-
-
-# Artist
-
-## Create a new Artist
-
-  POST /api/artists/
-  
-  To be continues
