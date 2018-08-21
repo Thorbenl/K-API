@@ -14,7 +14,6 @@ const TracklistSchema = new Schema({
         min: 1,
         max: 24
     },
-
 });
 
 const AlbumSchema = new Schema({
@@ -24,7 +23,7 @@ const AlbumSchema = new Schema({
     },
     releaseDate: Date,
     numberOfTracks: Number,
-    trackList: [TracklistSchema]
+    tracklist: [TracklistSchema]
 });
 
 const ArtistSchema = new Schema({

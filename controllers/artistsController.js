@@ -5,8 +5,8 @@ function validateArtist(artist) {
     const schema = {
         stageName: Joi.string().min(3).max(255).required(),
         realName: Joi.string().min(5).max(255).required(),
-        company: Joi.string().min(5).max(255).required(),
         birthday: Joi.date().required(),
+        company: Joi.string().min(5).max(255).required(),
         debutDate: Joi.date().required(),
         music: Joi.array().required(),
     };
@@ -14,11 +14,10 @@ function validateArtist(artist) {
 }
 
 module.exports = {
-    index: async (req, res, next) => {
-      await Artist
-          .find({})
-          .then(artist => res.send(artist))
-          .catch(next);
+    index: async (req, res) => {
+        throw new Error('Y\'all whouldnt have thunken');
+            const artists = await Artist.find().sort('name');
+            res.send(artists);
     },
 
     create: async (req, res, next) => {

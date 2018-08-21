@@ -14,4 +14,8 @@ beforeEach(done => {
     artists.drop()
         .then(() => done())
         .catch(() => done())
-})
+    const { users } = mongoose.connection.collections;
+    users.drop()
+        .then(() => done())
+        .catch(() => done())
+});

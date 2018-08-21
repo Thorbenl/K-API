@@ -1,13 +1,30 @@
+require('express-async-errors');
+const winston = require('winston');
+require('winston-mongodb');
 const express = require('express');
-const helmet  = require('helmet');
+const error = require('./middleware/error');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
 const config = require('config');
 
-const artists = require('./routes/artists');
-const users = require('./routes/users');
-const auth = require('./routes/auth');
+winston.handleExceptions(
+    new winston.transports.File({ filename: 'uncaughtExceptions.log'})
+    );
+
+process.on('unhandledRejection', (ex) => {
+    throw ex;
+});
+
+winston.add(winston.transports.File, { filename: 'logfile.log'});
+winston.add(winston.transports.MongoDB,{
+    db: 'mongodb://localhost:27017/K-API',
+    level: 'info'
+});
+
+const artists = require('./routes/api/artists');
+const users = require('./routes/api/users');
+const auth = require('./routes/api/auth');
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'test') {
@@ -27,10 +44,10 @@ if (!config.get('jwtPrivateKey')) {
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(helmet());
 app.use('/api/artists', artists);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use(error);
 
 app.use((err, req, res, next) => {
     res.status(422).send({error: err.message});

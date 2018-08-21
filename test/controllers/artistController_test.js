@@ -37,7 +37,6 @@ describe('Artists Controller', () => {
                         done();
                     });
                 });
-                done();
         });
     });
     it('Put to /api/artists/:id updates an existing record', (done) => {
@@ -62,7 +61,5 @@ describe('Artists Controller', () => {
                 });
 
         });
-        done();
     });
-
 });
