@@ -13,6 +13,11 @@ function validateUser(user) {
 }
 
 module.exports = {
+    getUser: async (req, res, next) => {
+       await User.findById(req.user._id).select('-password')
+           .then(User => res.send(User))
+           .catch(next);
+    },
     create: async (req, res, next) => {
 
         const { error } = validateUser(req.body);

@@ -52,7 +52,7 @@ const ArtistSchema = new Schema({
     },
     company: {
         type: String,
-        minlength: 5,
+        minlength: 3,
         maxlength: 255,
         required: function () {
             return this.active;
