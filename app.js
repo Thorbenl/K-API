@@ -5,6 +5,11 @@ require('./startup/logging');
 require('./startup/routes')(app);
 require('./startup/db')();
 require('./startup/config')();
+
+if (process.env.NODE_ENV === 'production') {
+  require('./startup/prod')(app);
+}
+
 app.use(express.urlencoded({extended: true}));
 
 const port = process.env.PORT || 3050;
