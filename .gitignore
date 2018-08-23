@@ -164,4 +164,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-.idea
+# Get rid of this idea folder
+.idea/
