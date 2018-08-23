@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "SET NODE_ENV=test && nodemon --exec mocha --recursive"
+    "test": "jest"
   },
   "engines": {
     "node": "10.9.0"
@@ -29,14 +29,14 @@
     "joi": "^13.6.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
-    "mocha": "^5.2.0",
     "mongoose": "^5.2.5",
+    "morgan": "^1.9.0",
     "supertest": "^3.1.0",
     "winston": "^2.0.0",
     "winston-mongodb": "^3.0.0"
   },
   "devDependencies": {
-    "morgan": "^1.9.0",
+    "jest": "^23.5.0",
     "nodemon": "^1.18.3"
   }
 }
