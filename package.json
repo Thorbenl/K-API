@@ -4,7 +4,7 @@
   "description": "An API which return Kpop artists for now.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon app.js",
     "test": "SET NODE_ENV=test && nodemon --exec mocha --recursive"
   },
   "keywords": [

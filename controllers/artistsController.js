@@ -15,7 +15,6 @@ function validateArtist(artist) {
 
 module.exports = {
     index: async (req, res) => {
-        throw new Error('Y\'all whouldnt have thunken');
             const artists = await Artist.find().sort('name');
             res.send(artists);
     },
