@@ -14,12 +14,21 @@ npm install
 
 # Start MongoDB
 
-# Env Variables
+# IMPORTANT
+You will NEED to set the token private key before launching the application.
+
 Windows & Linux
-SET kpi_jwtPrivateKey=hello
+ - SET kpi_jwtPrivateKey=hello
 
 Mac
-export kpi_jwtPrivateKey=hello
+ - export kpi_jwtPrivateKey=hello
 
 # Start server
-npm run start
+ - npm run start
+
+
+To do:
+
+- Unit tests
+- Expand API
+- Proper docs
