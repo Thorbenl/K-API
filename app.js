@@ -13,4 +13,6 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.urlencoded({extended: true}));
 
 const port = process.env.PORT || 3050;
-app.listen(port, () => winston.info(`Listening on port ${port}...`));
+const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));
+
+module.exports = server;
