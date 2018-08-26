@@ -7,7 +7,6 @@ function validateArtist(artist) {
         realName: Joi.string().min(5).max(255).required(),
         birthday: Joi.date().required(),
         company: Joi.string().min(5).max(255).required(),
-        debutDate: Joi.date().required(),
         music: Joi.array().required(),
     };
     return Joi.validate(artist, schema)
@@ -15,51 +14,54 @@ function validateArtist(artist) {
 
 module.exports = {
     index: async (req, res) => {
-            const artists = await Artist.find().sort('name');
-            res.send(artists);
+        const artists = await Artist.find().sort('name');
+        res.send(artists);
     },
 
-    create: async (req, res, next) => {
+    view: async (req, res) => {
+        const artist = await Artist.findById(req.params.id);
+        if (!artist) return res.status(404).send('The artist was not found');
+        res.send(artist);
+    },
+
+    create: async (req, res) => {
         const { error } = validateArtist(req.body);
         if (error)
             return res.status(400).send(error.details[0].message);
 
-        const artist = await Artist.findOne({ stageName: req.body.stageName});
-        if (artist)
+        const duplicate = await Artist.findOne({ stageName: req.body.stageName});
+        if (duplicate)
             return res.status(400).send('Artist already exists');
 
-        let artistProps = req.body;
-        await Artist.create(artistProps)
-             .then(artist => res.send(artist))
-             .catch(next);
+        const artist = new Artist({
+            stageName: req.body.stageName,
+            realName: req.body.realName,
+            company: req.body.company,
+            birthday: req.body.birthday
+        });
+         await artist.save();
+        res.send(artist)
     },
 
-    edit: async (req, res, next) => {
-        const artistId = req.params.id;
-        const artistProps = req.body;
+    edit: async (req, res) => {
+        const { error } = validateArtist(req.body);
+        if (error)
+            return res.status(400).send(error.details[0].message);
 
-        await Artist.findByIdAndUpdate({ _id: artistId}, artistProps)
-            .then(() => Artist.findById({_id: artistId}))
-            .then(artist => res. send(artist))
-            .catch(next);
+        const artist = await Artist.findByIdAndUpdate(req.params.id, {
+            stageName: req.body.stageName,
+            realName: req.body.realName,
+            company: req.body.company,
+            birthday: req.body.birthday
+        }, { new: true });
 
+        if (!artist) return res.status(404).send('The artist with the given ID was not found.');
+        res.send(artist);
     },
 
-    delete: async (req, res, next) => {
-        const artistId = req.params.id;
-        await Artist.findByIdAndRemove({ _id: artistId})
-            .then((artist) => res.status(204).send(artist))
-            .catch(next);
+    delete: async (req, res) => {
+        const artist = await Artist.findByIdAndRemove(req.params.id);
+        if (!artist) return res.status(404).send('The artist with the given ID was not found.');
+        res.send(artist);
     },
-
-    view: async (req, res, next) => {
-        const artistId = req.params.id;
-        const artistProps = req.body;
-
-        await Artist.findById({ _id: artistId}, artistProps)
-            .then(() => Artist.findById({_id: artistId}))
-            .then(artist => res. send(artist))
-            .catch(next);
-
-    }
 };

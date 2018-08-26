@@ -46,8 +46,7 @@ const ArtistSchema = new Schema({
         required: true
     },
     debutDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     company: {
         type: String,
