@@ -2,9 +2,9 @@
   "name": "k-api",
   "version": "0.0.1",
   "description": "An API which return Kpop artists for now.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "jest --watchAll --verbose"
   },
   "engines": {

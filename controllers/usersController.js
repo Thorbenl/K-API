@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Joi = require('joi');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const generateAuthToken = require('../middleware/token');
 
 function validateUser(user) {
     const schema = {
@@ -35,7 +36,7 @@ module.exports = {
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
 
-        const token = user.generateAuthToken();
+        const token = generateAuthToken;
         res.header('x-auth-token', token).send(_.pick(user,
             [
                 '_id',
