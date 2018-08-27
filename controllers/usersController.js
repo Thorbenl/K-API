@@ -36,8 +36,7 @@ module.exports = {
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
 
-        const token = generateAuthToken;
-        res.header('x-auth-token', token).send(_.pick(user,
+        res.header('x-auth-token', generateAuthToken()).send(_.pick(user,
             [
                 '_id',
                 'name',
