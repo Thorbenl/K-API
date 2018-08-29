@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
-  "db": "mongodb://localhost:27017/K-API"
+  "jwtPrivateKey": "hello",
+  "db": "mongodb://mongo:27017/K-API"
 }

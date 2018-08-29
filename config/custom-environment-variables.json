@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "kapi_jwtPrivateKey",
+  "jwtPrivateKey": "hello",
   "db" : "kapi_db"
 }

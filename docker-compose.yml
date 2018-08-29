@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  api:
+    container_name: api
+    build: .
+    environment:
+      REDIS_URI: redis://redis:6379
+    ports:
+      - '3050:3050'
+    links:
+      - mongo
+      - redis
+  mongo:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - '27017:27017'
+  redis:
+      image: redis
+      ports:
+          - "6379:6379"

@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
+const generateAuthToken = require('../middleware/token');
 
 function validate(req) {
     const schema = {
@@ -11,7 +12,7 @@ function validate(req) {
 }
 
 module.exports = {
-    create: async (req, res, next) => {
+    create: async (req, res) => {
         const { error } = validate(req.body);
         if (error)
             return res.status(400).send(error.details[0].message);
@@ -24,7 +25,7 @@ module.exports = {
         if (!validPassword)
             return res.status(400).send('Invalid Email or Password');
 
-        const token = user.generateAuthToken();
+        const token = generateAuthToken();
 
         res.send(token);
     },

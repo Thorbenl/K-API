@@ -4,11 +4,8 @@
   "description": "An API which return Kpop artists for now.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "jest --watchAll --verbose"
-  },
-  "engines": {
-    "node": "10.9.0"
   },
   "keywords": [
     "kpop",
@@ -19,7 +16,7 @@
   "author": "Thorben Luepkes",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "latest",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "config": "^2.0.0",
@@ -31,6 +28,7 @@
     "lodash": "^4.17.10",
     "mongoose": "^5.2.5",
     "morgan": "^1.9.0",
+    "redis": "^2.8.0",
     "winston": "^2.0.0",
     "winston-mongodb": "^3.0.0"
   },

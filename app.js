@@ -1,4 +1,5 @@
 const winston = require('winston');
+const morgan = require('morgan');
 const express = require('express');
 const app = express();
 require('./startup/logging')();
@@ -11,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(express.urlencoded({extended: true}));
+app.use(morgan('combined'));
 
 const port = process.env.PORT || 3050;
 const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));
