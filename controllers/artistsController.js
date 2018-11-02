@@ -39,7 +39,7 @@ module.exports = {
             company: req.body.company,
             birthday: req.body.birthday
         });
-         await artist.save();
+         await artist.save();^
         res.send(artist)
     },
 

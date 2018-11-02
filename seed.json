@@ -1,0 +1,36 @@
+{
+  "stageName" :"HyunA",
+  "realName": "Kim Hyun-Ah",
+  "company": "Cube Entertainment",
+  "birthday": "2016-08-04 11:46:40.840Z",
+  "debutDate": "2014-08-04 11:46:40.840Z",
+  "music":
+  [
+    {
+      "title": "Lip & Hip",
+      "tracklist": [
+        {
+          "trackNumber": 1,
+          "title": "Lip & Hip"
+        },
+        {
+          "trackNumber": 2,
+          "title": "Lip & Hip (Inst.)"
+        }
+      ]
+    },
+    {
+      "title": "How's this?",
+      "tracklist": [
+        {
+          "trackNumber": 1,
+          "title": "How's this?"
+        },
+        {
+          "trackNumber": 2,
+          "title": "How's this? (Inst.)"
+        }
+      ]
+    }
+  ]
+}
